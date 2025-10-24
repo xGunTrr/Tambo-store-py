@@ -4,7 +4,7 @@ class SigninController:
     def __init__(self, signin_form, user_dao):
         self.signin_form = signin_form
         self.user_dao = user_dao
-        self.signin_form.button_wid.config(command=self.create_user)
+        self.signin_form.button_wid02.config(command=self.create_user)
 
     def create_user(self):
         p_username = self.signin_form.user_entry.get()

@@ -1,7 +1,4 @@
-from model.classes import ProductModel
-from model.classes import SellModel
 from model.classes import UserModel
-from model.database import Database
 
 class UserDAO:
     def __init__(self, database):
