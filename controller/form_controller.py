@@ -10,4 +10,5 @@ class SigninController:
         p_username = self.signin_form.user_entry.get()
         p_password = self.signin_form.password_entry.get()
 
-        self.user_dao.create_user(UserModel(id_user=0, user=p_username, password=p_password))
+        if not (len(p_username) < 5 and len(p_password) < 8):
+            self.user_dao.create_user(UserModel(id_user=0, user=p_username, password=p_password))

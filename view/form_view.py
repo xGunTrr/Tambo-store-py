@@ -12,7 +12,7 @@ class FormView(tk.Tk):
         self.resizable(0, 0) # No se puede reescalar
 
         # --- Creación de frames para guardar los widgets ---
-        frame_left = tk.Frame(self, bg="white")
+        frame_left = tk.Frame(self, bg="#9c1b83")
         frame_left.grid(row=0, column=0, sticky="nsew")
 
         frame_right = tk.Frame(self, bg="white")
@@ -24,11 +24,11 @@ class FormView(tk.Tk):
         self.grid_columnconfigure(1, weight=1)
 
         # --- Imagen de Tambo ---
-        self.original_image = Image.open("images/tambo_flyer.png")
-        self.new_image = self.original_image.resize((405, 540), Image.LANCZOS)
-        self.image_tk = ImageTk.PhotoImage(self.new_image)
-        self.label_image = tk.Label(frame_left, image=self.image_tk)
-        self.label_image.grid(row=0, column=0, sticky="w")
+        self.image = Image.open("images/tambo_flyer.png")
+        self.image = self.image.resize((405, 540), Image.LANCZOS)
+        self.image_tk = ImageTk.PhotoImage(self.image   )
+        self.label_image = tk.Label(frame_left, image=self.image_tk, bg="#9c1b83")
+        self.label_image.grid(row=0, column=0)
 
         # --- configuración de los elementos dentro de frame_left ---
         frame_left.rowconfigure(0, weight=1)
@@ -113,13 +113,13 @@ class SigninForm(FormView):
 
         self.heading_text.config(text="Registrarse")
 
-        self.user_entry.insert(0, "Crea un usuario")
-        self.user_entry.placeholder = "Crea un usuario"
+        self.user_entry.insert(0, "Crea un usuario (mínimo 5 dígitos)")
+        self.user_entry.placeholder = "Crea un usuario (mínimo 5 dígitos)"
         self.user_entry.bind("<FocusIn>", self.on_enter)
         self.user_entry.bind("<FocusOut>", self.on_leave)
 
-        self.password_entry.insert(0, "Crea una contraseña")
-        self.password_entry.placeholder = "Crea una contraseña"
+        self.password_entry.insert(0, "Crea una contraseña (mínimo 8 dígitos)")
+        self.password_entry.placeholder = "Crea una contraseña (mínimo 8 dígitos)"
         self.password_entry.bind("<FocusIn>", self.on_enter)
         self.password_entry.bind("<FocusOut>", self.on_leave)
 
