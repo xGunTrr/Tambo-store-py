@@ -1,15 +1,18 @@
+from view.widgets import NewTopLevel
+
 import tkinter as tk 
 from PIL import Image, ImageTk, ImageOps
 
 from config import FORM_SIZE
 
-class FormView(tk.Toplevel):
+class FormView(NewTopLevel):
     def __init__(self, parent, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
 
         # --- Propiedades de la pantalla ---
         self.geometry(FORM_SIZE)
         self.resizable(0, 0) # No se puede reescalar
+        self.center_top_level(960, 540)
         self.protocol("WM_DELETE_WINDOW", self.quit_app)
 
         # --- Creación de frames para guardar los widgets ---

@@ -9,9 +9,7 @@ if __name__ == "__main__":
     root.withdraw()
 
     database = Database()
-
     user_dao = UserDAO(database)
-
     LoginController(root, user_dao)
 
     root.mainloop()

@@ -17,8 +17,7 @@ class SigninController:
         LoginController(self.root, self.user_dao)
         
     def create_user(self):
-        p_username = self.signin_form.user_entry.get()
-        p_password = self.signin_form.password_entry.get()
+        p_username, p_password = self.signin_form.get_user_data()
 
         if p_username == self.signin_form.user_entry.placeholder:
             messagebox.showwarning(title="Advertencia", message="La casilla de usuario no debe estar vacía")
@@ -39,7 +38,6 @@ class SigninController:
         self.user_dao.create_user(UserModel(id_user=0, user=p_username, password=p_password))
         messagebox.showinfo(title="Éxito", message="Usuario creado correctamente")
 
-
 class LoginController:
     def __init__(self, root, user_dao):
         self.root = root
@@ -51,3 +49,8 @@ class LoginController:
     def open_signin(self):
         self.login_form.destroy()
         SigninController(self.root, self.user_dao)
+    
+    def login_user(self):
+        p_username, p_password = self.signin_form.get_user_data()
+
+        
