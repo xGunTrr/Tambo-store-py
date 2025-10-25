@@ -21,7 +21,7 @@ class UserModel:
             self._user = user 
     
     def set_password(self, password):
-        if len(password) < 8 and password != '':
+        if len(password) < 6 and password != '':
             self._password = password
 
 class ProductModel:

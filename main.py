@@ -1,16 +1,17 @@
-from view.form_view import FormView
-from view.form_view import LoginForm
-from view.form_view import SigninForm
-from model.classes import UserModel
-from model.classes_dao import UserDAO
+import tkinter as tk
+
 from model.database import Database
-from controller.form_controller import SigninController
+from controller.form_controller import LoginController
+from model.classes_dao import UserDAO
 
-db = Database()
-db.create_tables()
-user_dao = UserDAO(db)
+if __name__ == "__main__":
+    root = tk.Tk()
+    root.withdraw()
 
-sign_form = SigninForm()
-sign_controller = SigninController(sign_form, user_dao)
+    database = Database()
 
-sign_form.mainloop()
+    user_dao = UserDAO(database)
+
+    LoginController(root, user_dao)
+
+    root.mainloop()

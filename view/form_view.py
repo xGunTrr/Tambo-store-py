@@ -3,13 +3,14 @@ from PIL import Image, ImageTk, ImageOps
 
 from config import FORM_SIZE
 
-class FormView(tk.Tk):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+class FormView(tk.Toplevel):
+    def __init__(self, parent, *args, **kwargs):
+        super().__init__(parent, *args, **kwargs)
 
         # --- Propiedades de la pantalla ---
         self.geometry(FORM_SIZE)
         self.resizable(0, 0) # No se puede reescalar
+        self.protocol("WM_DELETE_WINDOW", self.quit_app)
 
         # --- Creación de frames para guardar los widgets ---
         frame_left = tk.Frame(self, bg="#9c1b83")
@@ -84,9 +85,16 @@ class FormView(tk.Tk):
             if entry.placeholder == "Ingresa tu contraseña" or entry.placeholder == "Crea una contraseña":
                 entry.config(show="")
 
+    def get_user_data(self):
+        return self.user_entry.get(), self.password_entry.get()
+    
+    def quit_app(self):
+        self.destroy()
+        self.master.quit()
+
 class LoginForm(FormView):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, parent):
+        super().__init__(parent)
         self.title("Iniciar Sesión")
 
         self.heading_text.config(text="Iniciar sesión")
@@ -107,8 +115,8 @@ class LoginForm(FormView):
         self.button_wid02.config(text="Ingresar")
 
 class SigninForm(FormView):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, parent):
+        super().__init__(parent)
         self.title("Crear una cuenta")
 
         self.heading_text.config(text="Registrarse")
