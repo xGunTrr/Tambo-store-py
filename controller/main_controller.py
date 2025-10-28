@@ -6,8 +6,13 @@ from datetime import datetime
 class MainController:
     def __init__(self, user_dao):
         self.user_dao = user_dao
+        self.logged_user = None
         self.main_view = MainView()
         self.actualizar_hora()
+
+    def show_user_info(self, user):
+        self.logged_user = user
+        self.main_view.user_name.config(text=f"Usuario: {self.logged_user['usuario']}")
 
     def actualizar_hora(self):
         locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')

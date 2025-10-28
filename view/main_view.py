@@ -22,7 +22,7 @@ class MainView(NewTk):
         bottom_frame.grid(row=2, column=0, sticky="nsew")
 
         # --- Configuración del grid ---
-        self.grid_rowconfigure(0, weight=2)
+        self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=100)
         self.grid_rowconfigure(2, weight=1)
         self.grid_columnconfigure(0, weight=1)
@@ -36,14 +36,21 @@ class MainView(NewTk):
         self.label_image_logo.pack(side="left", padx=(10, 0))
 
         # --- perfil de ususario ---
-        self.image_profile = Image.open("images/user.ico")
-        self.image_profile = self.image_profile.resize((50, 50), Image.LANCZOS)
-        self.image_tk_profile = ImageTk.PhotoImage(self.image_profile)
-        self.label_image_profile = tk.Label(top_frame, image=self.image_tk_profile, bg="#9c1b83")
-        self.label_image_profile.pack(side="right", padx=(0, 60))
-        
-        self.frame_user_data = tk.Frame(top_frame)
+        profile_frame = tk.Frame(top_frame, bg="#9c1b83")
+        profile_frame.pack(side="right", padx=(0, 30))
 
+        self.user_name = tk.Label(profile_frame, bg="#9c1b83", fg="white", text="Usuario: 75341109")
+        self.user_name.grid(row=0, column=0)
+
+        self.user_admin_button = tk.Button(profile_frame, text="Administrar Perfil")
+        self.user_admin_button.grid(row=1, column=0)
+
+        self.image_profile = Image.open("images/user.ico")
+        self.image_profile = self.image_profile.resize((70, 70), Image.LANCZOS)
+        self.image_tk_profile = ImageTk.PhotoImage(self.image_profile)
+        self.label_image_profile = tk.Label(profile_frame, image=self.image_tk_profile, bg="#9c1b83")
+        self.label_image_profile.grid(row=0, column=1, rowspan=2, padx=(5, 0))
+        
         # --- Frame inferior ---
         self.local_time = tk.Label(bottom_frame)
         self.local_time.pack(side="left")

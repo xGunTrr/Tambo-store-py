@@ -12,5 +12,5 @@ if __name__ == "__main__":
     root = MainController(user_dao)
     root.main_view.withdraw()
 
-    LoginController(root.main_view, user_dao)
+    LoginController(root.main_view, user_dao, root)
     root.main_view.mainloop()

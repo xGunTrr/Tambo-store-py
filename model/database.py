@@ -4,6 +4,7 @@ class Database:
     def __init__(self):
         self.conn = sqlite3.connect("tambo-store-database.db") # Se busca el archivo, en caso no exista se crea uno 
         self.cursor = self.conn.cursor()
+        self.create_tables()
 
     def create_tables(self):
         query = """
