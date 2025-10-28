@@ -20,6 +20,10 @@ class SigninController:
     def create_user(self):
         p_username, p_password = self.signin_form.get_user_data()
 
+        if self.user_dao.get_user_by_username(p_username):
+            messagebox.showwarning(title="Advertencia", message="El usuario que ingresaste ya existe")
+            return
+
         if p_username == self.signin_form.user_entry.placeholder:
             messagebox.showwarning(title="Advertencia", message="La casilla de usuario no debe estar vacía")
             return
