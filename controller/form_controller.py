@@ -58,6 +58,14 @@ class LoginController:
 
         user = self.user_dao.verify_user(p_username, p_password)
 
+        if p_username == self.login_form.user_entry.placeholder:
+            messagebox.showwarning(title="Advertencia", message="Complete sus datos para continuar")
+            return
+
+        if p_password == self.login_form.password_entry.placeholder:
+            messagebox.showwarning(title="Advertencia", message="Complete sus datos para continuar")
+            return
+
         if not user:
             messagebox.showwarning(title="Advertencia", message="Usuario o contraseña incorrectas")
             return
