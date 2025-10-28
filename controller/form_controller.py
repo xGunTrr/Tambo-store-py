@@ -5,8 +5,9 @@ from model.classes import UserModel
 from tkinter import messagebox
 
 class SigninController:
-    def __init__(self, root, user_dao):
+    def __init__(self, root, user_dao, main_controller):
         self.root = root
+        self.main_controller = main_controller
         self.user_dao = user_dao
         self.signin_form = SigninForm(root)
 
@@ -15,7 +16,7 @@ class SigninController:
 
     def open_login(self):
         self.signin_form.destroy()
-        LoginController(self.root, self.user_dao)
+        LoginController(self.root, self.user_dao, self.main_controller)
         
     def create_user(self):
         p_username, p_password = self.signin_form.get_user_data()
@@ -33,11 +34,11 @@ class SigninController:
             return
 
         if len(p_username) < 4:
-            messagebox.showwarning(title="Advertencia", message="El usuario debe tener al menos 5 caracteres")
+            messagebox.showwarning(title="Advertencia", message="El usuario debe tener al menos 4 caracteres")
             return
 
         if len(p_password) < 4:
-            messagebox.showwarning(title="Advertencia", message="La contraseña debe tener al menos 6 caracteres")
+            messagebox.showwarning(title="Advertencia", message="La contraseña debe tener al menos 4 caracteres")
             return
 
         self.user_dao.create_user(UserModel(id_user=0, user=p_username, password=p_password))
@@ -55,7 +56,7 @@ class LoginController:
     
     def open_signin(self):
         self.login_form.destroy()
-        SigninController(self.root, self.user_dao)
+        SigninController(self.root, self.user_dao, self.main_controller)
     
     def login_user(self):
         p_username, p_password = self.login_form.get_user_data()
