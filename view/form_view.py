@@ -3,16 +3,15 @@ from view.widgets import NewTopLevel
 import tkinter as tk 
 from PIL import Image, ImageTk, ImageOps
 
-from config import FORM_SIZE
+from config import W_FORM, H_FORM
 
 class FormView(NewTopLevel):
     def __init__(self, parent, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
 
         # --- Propiedades de la pantalla ---
-        self.geometry(FORM_SIZE)
         self.resizable(0, 0) # No se puede reescalar
-        self.center_top_level(960, 540)
+        self.center_top_level(W_FORM, H_FORM)
         self.protocol("WM_DELETE_WINDOW", self.quit_app)
 
         # --- Creación de frames para guardar los widgets ---
@@ -30,7 +29,7 @@ class FormView(NewTopLevel):
         # --- Imagen de Tambo ---
         self.image = Image.open("images/tambo_flyer.png")
         self.image = self.image.resize((405, 540), Image.LANCZOS)
-        self.image_tk = ImageTk.PhotoImage(self.image   )
+        self.image_tk = ImageTk.PhotoImage(self.image)
         self.label_image = tk.Label(frame_left, image=self.image_tk, bg="#9c1b83")
         self.label_image.grid(row=0, column=0)
 
@@ -129,8 +128,8 @@ class SigninForm(FormView):
         self.user_entry.bind("<FocusIn>", self.on_enter)
         self.user_entry.bind("<FocusOut>", self.on_leave)
 
-        self.password_entry.insert(0, "Crea una contraseña (mínimo 8 dígitos)")
-        self.password_entry.placeholder = "Crea una contraseña (mínimo 8 dígitos)"
+        self.password_entry.insert(0, "Crea una contraseña (mínimo 5 dígitos)")
+        self.password_entry.placeholder = "Crea una contraseña (mínimo 5 dígitos)"
         self.password_entry.bind("<FocusIn>", self.on_enter)
         self.password_entry.bind("<FocusOut>", self.on_leave)
 

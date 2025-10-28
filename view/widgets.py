@@ -11,3 +11,15 @@ class NewTopLevel(tk.Toplevel):
         pheight = round(htotal/2-hventana/2)
     
         self.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight))
+
+class NewTk(tk.Tk):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+    
+    # --- Método que permite centrar una ventana ---
+    def center_Tk(self, wventana, hventana):
+        wtotal, htotal = self.winfo_screenwidth(), self.winfo_screenheight()
+        pwidth = round(wtotal/2-wventana/2)
+        pheight = round(htotal/2-hventana/2)
+    
+        self.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight))        
