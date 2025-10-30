@@ -123,13 +123,13 @@ class SigninForm(FormView):
 
         self.heading_text.config(text="Registrarse")
 
-        self.user_entry.insert(0, "Crea un usuario (mínimo 5 dígitos)")
-        self.user_entry.placeholder = "Crea un usuario (mínimo 5 dígitos)"
+        self.user_entry.insert(0, "Crea un usuario (mínimo 4 dígitos)")
+        self.user_entry.placeholder = "Crea un usuario (mínimo 4 dígitos)"
         self.user_entry.bind("<FocusIn>", self.on_enter)
         self.user_entry.bind("<FocusOut>", self.on_leave)
 
-        self.password_entry.insert(0, "Crea una contraseña (mínimo 5 dígitos)")
-        self.password_entry.placeholder = "Crea una contraseña (mínimo 5 dígitos)"
+        self.password_entry.insert(0, "Crea una contraseña (mínimo 4 dígitos)")
+        self.password_entry.placeholder = "Crea una contraseña (mínimo 4 dígitos)"
         self.password_entry.bind("<FocusIn>", self.on_enter)
         self.password_entry.bind("<FocusOut>", self.on_leave)
 
