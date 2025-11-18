@@ -1,0 +1,64 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.logo-tambo{
+    height: 9%;
+    width: auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-text{
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    margin-top: 5px;    
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #a51991;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.checkbox-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.signup-link {
+    margin-bottom: 15px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}

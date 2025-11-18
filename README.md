@@ -1,64 +1,56 @@
-# Tambo Store
-## Requerimientos
-- python 3.x
-- sqlite3 (viene por defecto como librería estándar en python)
-- tkinter (generalmente viene por defecto como librería en python)
-- pip o pip3 (para instalación de librerías externas a través de PIP)
-## Descargar las dependencias
+# Tambo Store (proyecto personal)
+Sistema de gestión de inventario para **Tiendas Tambo** haciendo uso de html, css y python.
+
+## Requisitos
+- python3.x
+- Navegador web(google chrome, firefox, etc)
+- pip o pip3
+
+## Configurando el entorno
+### Entorno Virtual
+Crearemos un entorno virtual para aislas dependecias externas de nuestro sistema y evitar inconvenientes.
+
 1. Creamos un entorno virtual
 - Windows
-```cmd
+```
 python -m venv .venv
 ```
-- Linux
-```bash
+- Mac OS / Linux
+```python
 python3 -m venv .venv
 ```
 2. Activamos el entorno virtual
 - Windows
-```cmd
-.venv/Scripts/activate
 ```
-- Linux
-```bash
+./.venv/bin/Script
+```
+- Mac OS / Linux
+```
 source .venv/bin/activate
 ```
-3. Descargamos las dependecias
+3.  Descargamos los requerimientos
+- Windows / Mac OS / Linux
 ```
 pip install -r requirements.txt
 ```
-## Cómo ejecutar el proyecto
+### Instalación de requerimientos
+## Modo de uso
+Iniciaremos el servidor con el siguiente comando:
 - Windows
-```cmd
-python main.py
 ```
-- Linux
-```bash
-python3 main.py
+python app.py
 ```
-> [!IMPORTANT]
-> Para poder realizar los siguientes pasos, te debes encontrar en la ruta raiz del proyecto.
-## Cómo subir mis cambios al repositorio
-Cuando te sientas seguro de que un cambio es realmente significativo en el código, significa que está listo para subirse al repositorio.
-1. Añadimos los archivos al repositorio local
-- Añadir por archivo
-```bash
-git add <nombre_de_archivo>
+- Mac OS / Linux
 ```
-- Añadir todos los archivos (no se añadirán los del .gitignore)
-```bash
-git add .
+python3 app/py
 ```
-2. Realizamos un commit en donde se especifique en pocas palabras lo realizado
-```bash
-git commit -m "<mensaje>"
-```
-3. Subimos los cambios al repositorio en la nube(github)
-```bash
-git push origin main
-```
-## Cómo actualizar el repositorio en mi máquina local
-En caso algún usuario haga actualizaciones y quieres que se vean reflejadas en tu máquina, usa este comando en git bash (Windows) o Terminal (Linux).
-```bash
-git pull origin main
-```
+Por defecto el proyecto usa la url '127.0.0.1:5000/' pero contamos con más endpoints:
+- `127.0.0.1:5000/signup`
+Endpoint para el registro de usuarios.
+- `127.0.0.1:5000/signin`
+Endpoint para el logueo de usuarios.
+- `127.0.0.1:5000/productos`
+Endpoint que muestra las categorias, subcategorias y productos.
+- `127.0.0.1:5000/usuarios`
+Enpoint que muestra los roles y usuarios.
+Como nos daremos cuenta, la aplicación nos enviará a la pestaña de login de forma automática en caso no estemos logueados, crearemos una cuenta para inciar con el uso yendo a `127.0.0.1:5000/signup`. 

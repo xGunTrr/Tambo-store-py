@@ -1,2 +1,4 @@
-Pillow
-pytz 
+flask
+flask-login
+Flask-WTF
+email-validator

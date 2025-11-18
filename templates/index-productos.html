@@ -1,0 +1,104 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="main-reports">
+    <div class="report-container">
+        <div class="report-header">
+            <h2 class="report-title">Categorias</h2>
+        </div>
+
+        <div class="report-body">
+            <div class="report-topic-heading">
+                <h3 class="t-op">ID</h3>
+                <h3 class="t-op">Categoria</h3>
+            </div>
+
+            <div class="items">
+                {% for c in categorias %}
+                <div class="item">
+                    <h3 class="t-op-nextlvl">{{ c.id }}</h3>
+                    <h3 class="t-op-nextlvl">{{ c.nombre_categoria }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="report-container">
+        <div class="report-header">
+            <h2 class="report-title">Subcategorias</h2>
+        </div>
+
+        <div class="report-body">
+            <div class="report-topic-heading">
+                <h3 class="t-op">ID</h3>
+                <h3 class="t-op">Subcategoria</h3>
+                <h3 class="t-op">Categoria</h3>
+            </div>
+
+            <div class="items">
+                {% for s in subcategorias %}
+                <div class="item">
+                    <h3 class="t-op-nextlvl">{{ s.id }}</h3>
+                    <h3 class="t-op-nextlvl">{{ s.nombre_subcategoria }}</h3>
+                    <h3 class="t-op-nextlvl">{{ s.id_categoria }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="report-container">
+        <div class="report-header">
+            <h2 class="report-title">Productos</h2>
+        </div>
+
+        <div class="report-body">
+            <div class="report-topic-heading">
+                <h3 class="t-op">Código</h3>
+                <h3 class="t-op">Nombre de Producto</h3>
+                <h3 class="t-op">Categoría</h3>
+                <h3 class="t-op">Subcategoría</h3>
+                <h3 class="t-op">Precio</h3>
+                <h3 class="t-op">Stock</h3>
+                <h3 class="t-op">Descripción</h3>
+                <h3 class="t-op">Ruta de imagen</h3>
+            </div>
+
+            <div class="items">
+                {% for p in productos %}
+                <div class="item">
+                    <h3 class="t-op-nextlvl">{{ p.id }}</h3>
+                    <h3 class="t-op-nextlvl">{{ p.nombre_producto }}</h3>
+                    <h3 class="t-op-nextlvl">{{ p.id_categoria }}</h3>
+                    <h3 class="t-op-nextlvl">{{ p.id_subcategoria }}</h3>
+                    <h3 class="t-op-nextlvl">S/.{{ p.precio }}</h3>
+                    <h3 class="t-op-nextlvl">
+                        {% if p.stock is none %}
+                            0 und.
+                        {% else %}
+                            {{ p.stock }} und.
+                        {% endif %}
+                    </h3>
+                    <h3 class="t-op-nextlvl">
+                        {% if p.descripcion is none %}
+
+                        {% else %}
+                            {{ p.descripcion }}
+                        {% endif %}
+                    </h3>
+                    <h3 class="t-op-nextlvl">
+                        {% if p.ruta_imagen is none %}
+
+                        {% else %}
+                            {{ p.ruta_imagen }}
+                        {% endif %}
+                    </h3>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

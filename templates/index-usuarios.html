@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="main-reports">
+    <div class="report-container">
+        <div class="report-header">
+            <h2 class="report-title">Usuarios</h2>
+        </div>
+
+        <div class="report-body">
+            <div class="report-topic-heading">
+                <h3 class="t-op">ID</h3>
+                <h3 class="t-op">DNI</h3>
+                <h3 class="t-op">Rol</h3>
+                <h3 class="t-op">Correo Electrónico</h3>
+            </div>
+
+            <div class="items">
+                {% for u in usuarios %}
+                <div class="item">
+                    <h3 class="t-op-nextlvl">{{ u.id }}</h3>
+                    <h3 class="t-op-nextlvl">{{ u.dni }}</h3>
+                    <h3 class="t-op-nextlvl">{{ u.id_rol }}</h3>
+                    <h3 class="t-op-nextlvl">{{ u.email }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

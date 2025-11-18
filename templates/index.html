@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <header>
+        <img src="/static/img/icons/logo-tambo.webp" alt="Logo de Tambo" class="logo">
+    </header>
+
+    <div class="main-container">
+        <div class="navcontainer">
+            <nav class="nav">
+                <div class="nav-upper-options">
+                    <div class="nav-option" onclick="location.href='/'">
+                        <h3>Dashboard</h3>
+                    </div>
+                    <div class="nav-option" onclick="location.href='/productos'">
+                        <h3>Productos</h3>
+                    </div>
+                    <div class="nav-option" onclick="location.href='/usuarios'">
+                        <h3>Usuarios</h3>
+                    </div>
+                    <div class="nav-option" onclick="location.href='/logout'">
+                        <h3>Logout</h3>
+                    </div>
+                </div>
+            </nav>
+        </div> 
+        {% block content %}
+        {% endblock %}
+    </div>    
+</body>
+</html>
