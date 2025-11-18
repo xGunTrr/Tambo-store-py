@@ -44,13 +44,21 @@ python app.py
 ```
 python3 app/py
 ```
-Por defecto el proyecto usa la url '127.0.0.1:5000/' pero contamos con más endpoints:
+Podremos entrar a la app en la url por defecto `127.0.0.1:5000/`, en caso no estemos logueados se nos redirecciona a la página de login.
+![Dashboard de la página](/static/img/examples/01-Dashboard.png)
+
 - `127.0.0.1:5000/signup`
 Endpoint para el registro de usuarios.
+![Sign Up](/static/img/examples/02-Signup.png)
+
 - `127.0.0.1:5000/signin`
 Endpoint para el logueo de usuarios.
+![Sign In](/static/img/examples/03-Signin.png)
+
 - `127.0.0.1:5000/productos`
 Endpoint que muestra las categorias, subcategorias y productos.
+![Productos](/static/img/examples/04-productos.png)
+
 - `127.0.0.1:5000/usuarios`
 Enpoint que muestra los roles y usuarios.
-Como nos daremos cuenta, la aplicación nos enviará a la pestaña de login de forma automática en caso no estemos logueados, crearemos una cuenta para inciar con el uso yendo a `127.0.0.1:5000/signup`. 
+![Usuarios](/static/img/examples/05-usuarios.png)
