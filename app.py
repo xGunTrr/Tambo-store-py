@@ -1,6 +1,8 @@
 from flask import Flask, render_template
 from flask_login import LoginManager, login_required
 from controller.forms_controller import form_bp
+from controller.categorias_controller import categoria_bp
+from controller.subcategorias_controller import subcategoria_bp
 from controller.productos_controller import product_bp
 from controller.usuarios_controller import user_bp
 from model.usuario import Usuario
@@ -15,6 +17,8 @@ login_manager.login_view = 'form_bp.signin'
 
 # Controllers
 app.register_blueprint(form_bp)
+app.register_blueprint(categoria_bp)
+app.register_blueprint(subcategoria_bp)
 app.register_blueprint(product_bp)
 app.register_blueprint(user_bp)
 

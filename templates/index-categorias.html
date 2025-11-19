@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="main-reports">
+    <div class="report-container">
+        <div class="report-header">
+            <h2 class="report-title">Categorias</h2>
+        </div>
+
+        <div class="report-body">
+            <div class="report-topic-heading">
+                <h3 class="t-op">ID</h3>
+                <h3 class="t-op">Categoria</h3>
+            </div>
+
+            <div class="items">
+                {% for c in categorias %}
+                <div class="item">
+                    <h3 class="t-op-nextlvl">{{ c.id }}</h3>
+                    <h3 class="t-op-nextlvl">{{ c.nombre_categoria }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
