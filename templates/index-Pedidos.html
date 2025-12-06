@@ -1,0 +1,57 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="report-container">
+    <div class="report-header">
+        <h2 class="report-title">Pedidos</h2>
+    </div>
+
+    <div class="report-body">
+        <div class="report-topic-heading">
+            <h3 class="t-op">ID</h3>
+            <h3 class="t-op">Producto</h3>
+            <h3 class="t-op">cantidad</h3>
+            <h3 class="t-op">Comprar</h3>
+        </div>
+
+        <div class="items">
+            {% for p in pedidos %}
+            <form action="{{ url_for('registro_pedidos_bp.registrar_producto') }}" method="POST">
+                <div class="item">
+                    <!-- ID -->
+                    <h3 class="t-op-nextlvl">{{ p.id }}</h3>
+                    <input type="hidden" name="id" value="{{ p.id }}">
+
+                    <!-- Producto -->
+                    <h3 class="t-op-nextlvl">{{ p.producto }}</h3>
+                    <input type="hidden" name="producto" value="{{ p.producto }}">
+
+                    <!-- Stock (cantidad a pedir) -->
+                    <div>
+                        <input 
+                            type="number" 
+                            name="stock"
+                            min="1"
+                            maxlength="7"
+                            class="input-pedidos"
+                            required
+                        >
+                    </div>
+
+                    <!-- Fecha (se genera en backend, pero puedes enviarla si quieres) -->
+                    <input type="hidden" name="fecha_registro" value="{{ now }}">
+
+                    <!-- Botón -->
+                    <div class="form-group">
+                        <button type="submit" class="btn-submit input-pedidos">
+                            Pedir
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -178,3 +178,20 @@ header {
     color: white;
     border-radius: 4px;
 }
+.tabla-pedidos {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px; /* espacio vertical entre filas */
+}
+
+.tabla-pedidos td, 
+.tabla-pedidos th {
+    padding: 15px 25px; /* espacio interno en cada celda */
+}
+
+.input-pedidos {
+    width: 80px;      /* ancho fijo más pequeño */
+    padding: 5px;     /* espacio interno */
+    font-size: 14px;  /* tamaño de texto */
+}
+

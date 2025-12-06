@@ -12,6 +12,21 @@ CREATE TABLE IF NOT EXISTS usuarios(
     FOREIGN KEY (id_rol) REFERENCES roles(id)
 );
 
+CREATE TABLE IF NOT EXISTS pedidos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    producto TEXT NOT NULL,
+    stock INTEGER NOT NULL,
+    comprar_como TEXT
+);
+
+CREATE TABLE IF NOT EXISTS registro_pedidos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    producto TEXT NOT NULL,
+    stock INTEGER NOT NULL,
+    fecha_compra DATETIME NOT NULL,
+    fecha_vencimiento DATETIME NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS categorias(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre_categoria TEXT NOT NULL UNIQUE

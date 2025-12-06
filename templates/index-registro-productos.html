@@ -1,0 +1,61 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="main-reports">
+
+    <!-- Sección: Fecha de Compra -->
+    <div class="report-container">
+        <div class="report-header">
+            <h2 class="report-title">Fecha de Compra</h2>
+        </div>
+
+        <div class="report-body">
+            <div class="report-topic-heading">
+                <h3 class="t-op">ID</h3>
+                <h3 class="t-op">Producto</h3>
+                <h3 class="t-op">Stock</h3>
+                <h3 class="t-op">Fecha Registro</h3>
+            </div>
+
+            <div class="items">
+                {% for p in registro_productos %}
+                <div class="item">
+                    <h3 class="t-op-nextlvl">{{ p.id }}</h3>
+                    <h3 class="t-op-nextlvl">{{ p.producto }}</h3>
+                    <h3 class="t-op-nextlvl">{{ p.stock }}</h3>
+                    <h3 class="t-op-nextlvl">{{ p.fecha_registro }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección: Fecha de Vencimiento -->
+<div class="report-container">
+    <div class="report-header">
+        <h2 class="report-title">Fecha de Vencimiento</h2>
+    </div>
+
+    <div class="report-body">
+        <div class="report-topic-heading">
+            <h3 class="t-op">ID</h3>
+            <h3 class="t-op">Producto</h3>
+            <h3 class="t-op">Stock</h3>
+            <h3 class="t-op">Fecha Vencimiento</h3>
+        </div>
+
+        <div class="items">
+            {% for v in vencimientos %}
+            <div class="item">
+                <h3 class="t-op-nextlvl">{{ v.id }}</h3>
+                <h3 class="t-op-nextlvl">{{ v.producto }}</h3>
+                <h3 class="t-op-nextlvl">{{ v.stock }}</h3>
+                <h3 class="t-op-nextlvl">{{ v.fecha_registro }}</h3>  <!-- ← si usas fecha_registro para vencimiento -->
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}

@@ -1,73 +1,56 @@
 from flask import render_template, Blueprint, request, redirect, url_for
-from flask_wtf import FlaskForm
-from flask_login import current_user
-from flask_login import login_user, logout_user
-from wtforms import StringField, SubmitField, PasswordField, SelectField, BooleanField
-from wtforms.validators import DataRequired, Email, Length
+from flask_login import current_user, login_user, logout_user
 from urllib.parse import urlparse
 from model.usuario import Usuario
 from model.rol import Rol
-
-class SignupForm(FlaskForm):
-    dni = StringField('Dni', validators=[DataRequired(), Length(max=10)])
-    rol = SelectField('Rol', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired(), Length(max=20)])
-    submit = SubmitField('Registrar')
-
-class SigninForm(FlaskForm):
-    dni = StringField('Dni', validators=[DataRequired(message="Este campo es obligatorio.")])
-    password = PasswordField('Password', validators=[DataRequired(message="Este campo es obligatorio.")])
-    remember_me = BooleanField('Recuérdame')
-    submit = SubmitField('Login')
 
 form_bp = Blueprint('form_bp', __name__)
 
 @form_bp.route('/signup', methods=["GET", "POST"])
 def signup():
-    form = SignupForm()
+    if request.method == "POST":
+        # Extraer datos directamente de los inputs HTML
+        d_dni = request.form.get("dni")
+        d_idrol = request.form.get("rol")
+        d_email = request.form.get("email")
+        d_password = request.form.get("password")
 
-    # Se listan los roles y se agregan como opciones dentro del rol -> SelectField de la clase SignupForm
-    roles = Rol.listar_roles()
-    form.rol.choices = [(r.id, r.nombre_rol) for r in roles]
-
-    # Se validan los datos del formularios
-    if form.validate_on_submit():
-        d_dni = form.dni.data
-        d_idrol = form.rol.data
-        d_email = form.email.data
-        d_password = form.password.data
-
+        # Guardar en la BD
         Usuario.create_user(d_dni, d_idrol, d_email, d_password)
 
         next = request.args.get('next', None)
         if next:
             return redirect(next)
         return redirect(url_for('form_bp.signin'))
-    return render_template('signup_form.html', form=form)
+
+    # Pasar roles a la plantilla para renderizar el <select>
+    roles = Rol.listar_roles()
+    return render_template("signup_form.html", roles=roles)
+
 
 @form_bp.route('/signin', methods=["GET", "POST"])
 def signin():
-    form = SigninForm()
-
     if current_user.is_authenticated:
         return redirect(url_for('index'))
 
-    if form.validate_on_submit():
-        d_dni = form.dni.data
-        d_password = form.password.data
+    if request.method == "POST":
+        # Extraer datos del input HTML
+        d_dni = request.form.get("dni")
+        d_password = request.form.get("password")
+        remember_me = request.form.get("remember_me")  # checkbox
 
         user_model = Usuario.get_user_by_dni(d_dni)
 
-        if user_model is not None:
-            if user_model.check_password(d_password):
-                login_user(user_model, remember=form.remember_me.data)
-                next = request.args.get('next')
+        if user_model is not None and user_model.check_password(d_password):
+            login_user(user_model, remember=bool(remember_me))
+            next = request.args.get('next')
 
-                if not next or urlparse(next).netloc != '':
-                    next = url_for('index')
-                return redirect(url_for('index'))
-    return render_template('signin_form.html', form=form)
+            if not next or urlparse(next).netloc != '':
+                nexzt = url_for('index')
+            return redirect(next)
+
+    return render_template("signin_form.html")
+
 
 @form_bp.route('/logout')
 def logout():
