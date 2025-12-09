@@ -1,4 +1,5 @@
 from model.database import Database
+from model.arbol import ArbolProductos
 
 class Producto:
     def __init__(self, id=None, nombre_producto=None, id_categoria=None, id_subcategoria=None, precio=None, stock=None, descripcion=None, ruta_imagen=None):
@@ -43,3 +44,16 @@ class Producto:
                 )
             )
         return productos
+
+    @staticmethod
+    def cargar_arbol():
+        productos = Producto.listar_productos()
+        arbol = ArbolProductos()
+        for p in productos:
+            arbol.insertar(p)
+        return arbol
+
+    @staticmethod
+    def buscar_productos(nombre):
+        arbol = Producto.cargar_arbol()
+        return arbol.buscar(nombre)

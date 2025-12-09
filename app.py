@@ -7,7 +7,6 @@ from controller.productos_controller import product_bp
 from controller.usuarios_controller import user_bp
 from controller.pedido_controller import pedidos_bp
 from controller.registro_pedido_controller import registro_pedidos_bp
-from controller.buscador_controller import buscador_bp
 from model.usuario import Usuario
 
 app = Flask(__name__)
@@ -26,7 +25,6 @@ app.register_blueprint(product_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(pedidos_bp)
 app.register_blueprint(registro_pedidos_bp)
-app.register_blueprint(buscador_bp)
 
 
 

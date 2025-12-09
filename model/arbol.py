@@ -18,8 +18,7 @@ class ArbolProductos:
             self._insertar(self.raiz, producto)
 
     def _insertar(self, nodo, producto):
-        # Compara por nombre del producto (posición 1 de la tupla)
-        if producto[1].lower() < nodo.producto[1].lower():
+        if producto.nombre_producto.lower() < nodo.producto.nombre_producto.lower():
             if nodo.izq is None:
                 nodo.izq = Nodo(producto)
             else:
@@ -30,6 +29,7 @@ class ArbolProductos:
             else:
                 self._insertar(nodo.der, producto)
 
+
     def buscar(self, nombre):
         return self._buscar(self.raiz, nombre.lower())
 
@@ -37,17 +37,13 @@ class ArbolProductos:
         if nodo is None:
             return []
         resultados = []
-        # Si el texto buscado está dentro del nombre del producto
-        if nombre in nodo.producto[1].lower():
-            resultados.append({
-                "id": nodo.producto[0],
-                "nombre": nodo.producto[1],
-                "precio": nodo.producto[2],
-                "stock": nodo.producto[3]
-            })
+        # Aquí usamos el atributo del objeto, no un índice
+        if nombre in nodo.producto.nombre_producto.lower():
+            resultados.append(nodo.producto)
         resultados += self._buscar(nodo.izq, nombre)
         resultados += self._buscar(nodo.der, nombre)
         return resultados
+
 
     def listar_todos(self):
         """Devuelve todos los productos en orden alfabético por nombre"""

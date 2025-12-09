@@ -6,14 +6,13 @@
         <div class="report-header">
             <h2 class="report-title">Productos</h2>
         </div>
-
         <!-- 🔍 Buscador -->
-        <div class="search-bar">
-            <form method="POST" action="{{ url_for('categoria_bp.listar_productos') }}">
-                <input type="text" name="query" placeholder="Buscar producto..." class="search-input">
-                <button type="submit" class="btn-submit">Buscar</button>
-            </form>
-        </div>
+        <form method="POST" action="{{ url_for('product_bp.listar_productos') }}">
+            <input type="text" name="query" placeholder="Buscar producto...">
+            <button type="submit">Buscar</button>
+        </form>
+
+
 
         <div class="report-body">
             <div class="report-topic-heading">
