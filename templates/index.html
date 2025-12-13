@@ -10,6 +10,7 @@
     <header>
         <img src="/static/img/icons/logo-tambo.webp" alt="Logo de Tambo" class="logo">
     </header>
+    <!-- JS de Bootstrap (incluye Popper) -->
 
     <div class="main-container">
         <div class="navcontainer">
@@ -29,12 +30,12 @@
                     </div>
                     {% if current_user.id_rol != 2 %}
                     <div class="nav-option" onclick="location.href='/pedidos'">
-                        <h3>Pedidos</h3>
+                        <h3>Pedidos Proveedor</h3>
                     </div>
                     {% endif %}
                     {% if current_user.id_rol != 2 %}
                     <div class="nav-option" onclick="location.href='/registro-pedidos'">
-                        <h3>Registro de productos</h3>
+                        <h3>Inventario</h3>
                     </div>
                     {% endif %}
                     {% if current_user.id_rol != 2 %}
@@ -51,6 +52,6 @@
         </div> 
         {% block content %}
         {% endblock %}
-    </div>    
+    </div>
 </body>
 </html>

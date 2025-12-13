@@ -7,11 +7,14 @@
             <h2 class="report-title">Productos</h2>
         </div>
         <!-- 🔍 Buscador -->
-        <form method="POST" action="{{ url_for('product_bp.listar_productos') }}">
-            <input type="text" name="query" placeholder="Buscar producto...">
-            <button type="submit">Buscar</button>
-        </form>
-
+        <div class="buscador-container">
+            <form method="POST" action="{{ url_for('product_bp.listar_productos') }}" style="display: flex; gap: 10px;">
+                <input type="text" name="query" placeholder="Buscar producto..." value="{{ request.form.get('query', '') }}">
+                <button type="submit">Buscar</button>
+                <a href="{{ url_for('product_bp.listar_productos') }}" class="reset-btn">Reset</a>
+                <button type="button" class="agregar-btn" data-bs-toggle="modal" data-bs-target="#modalAgregarProducto">Agregar producto</button>
+            </form>
+        </div>
 
 
         <div class="report-body">
@@ -22,8 +25,8 @@
                 <h3 class="t-op">Subcategoría</h3>
                 <h3 class="t-op">Precio</h3>
                 <h3 class="t-op">Stock</h3>
-                <h3 class="t-op">Descripción</h3>
-                <h3 class="t-op">Ruta de imagen</h3>
+                <h3 class="t-op">Editar</h3>
+                <h3 class="t-op">Eliminar</h3>
             </div>
 
             <div class="items">
@@ -42,16 +45,18 @@
                         {% endif %}
                     </h3>
                     <h3 class="t-op-nextlvl">
-                        {% if p.descripcion is none %}
-                        {% else %}
-                            {{ p.descripcion }}
-                        {% endif %}
+                        <div class="form-group">
+                        <button type="submit" class="btn-submit input-pedidos">
+                            Editar
+                        </button>
+                    </div>
                     </h3>
                     <h3 class="t-op-nextlvl">
-                        {% if p.ruta_imagen is none %}
-                        {% else %}
-                            {{ p.ruta_imagen }}
-                        {% endif %}
+                        <div class="form-group">
+                        <button type="submit" class="btn-submit input-pedidos">
+                            Eliminar
+                        </button>
+                    </div>
                     </h3>
                 </div>
                 {% endfor %}

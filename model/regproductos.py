@@ -9,20 +9,21 @@ class RegistroProducto:
         self.fecha_registro = fecha_registro
 
     @staticmethod
-    @staticmethod
-    def registrar(producto, stock, fecha_registro):
+    def registrar(producto, stock, fecha_registro, fecha_vencimiento=None):
         db = Database()
-        # Calcular fecha de vencimiento 5 minutos después
-        fecha_vencimiento = (datetime.strptime(fecha_registro, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=1)).strftime("%Y-%m-%d %H:%M:%S")
+        if fecha_vencimiento is None:
+            fecha_vencimiento = (datetime.now() + timedelta(minutes=1)).strftime("%Y-%m-%d %H:%M:%S")
 
         query = """
             INSERT INTO registro_productos (producto, stock, fecha_registro, fecha_vencimiento)
-            VALUES (?, ?, ?, ?);
+            VALUES (?, ?, ?, ?)
         """
         db.cur.execute(query, (producto, stock, fecha_registro, fecha_vencimiento))
         db.conn.commit()
+        db.conn.close()
 
-
+        db.conn.close()
+    
     @staticmethod
     def listar_registros():
         db = Database()
@@ -51,14 +52,28 @@ class RegistroProducto:
         """, (ahora,)).fetchall()
 
         for v in vencidos:
+            # Guardar en registro_vencimientos
             db.cur.execute("""
                 INSERT INTO registro_vencimientos (producto, stock, fecha_vencimiento)
                 VALUES (?, ?, ?)
-            """, (v[1], v[2], v[3]))  # ← aquí v[3] debe ser la fecha de vencimiento
+            """, (v[1], v[2], v[3]))
 
+            # ✅ Disminuir stock en productos
+            db.cur.execute("""
+                UPDATE productos
+                SET stock = CASE 
+                    WHEN stock - ? < 0 THEN 0
+                    ELSE stock - ?
+                END
+                WHERE nombre_producto = ?
+            """, (v[2], v[2], v[1]))
+
+            # Eliminar de registro_productos
             db.cur.execute("DELETE FROM registro_productos WHERE id = ?", (v[0],))
 
         db.conn.commit()
+        db.conn.close()
+
 
     @staticmethod
     def listar_vencimientos():

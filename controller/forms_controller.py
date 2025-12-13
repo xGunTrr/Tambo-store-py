@@ -1,7 +1,7 @@
-from flask import render_template, Blueprint, request, redirect, url_for
+from flask import render_template, Blueprint, request, redirect, url_for , flash
 from flask_login import current_user, login_user, logout_user
 from urllib.parse import urlparse
-from model.usuario import Usuario
+from model.usuario import Usuario , intentos_fallidos
 from model.rol import Rol
 
 form_bp = Blueprint('form_bp', __name__)
@@ -34,20 +34,37 @@ def signin():
         return redirect(url_for('index'))
 
     if request.method == "POST":
-        # Extraer datos del input HTML
         d_dni = request.form.get("dni")
         d_password = request.form.get("password")
-        remember_me = request.form.get("remember_me")  # checkbox
+        remember_me = request.form.get("remember_me")
 
         user_model = Usuario.get_user_by_dni(d_dni)
 
-        if user_model is not None and user_model.check_password(d_password):
+        if user_model is None:
+            flash("Usuario no encontrado")
+            print("Intentos actuales:", intentos_fallidos)   # 👈 aquí ves el estado
+            return redirect(url_for("form_bp.signin"))
+
+        # Verificar si está bloqueado
+        if intentos_fallidos.get(d_dni, 0) >= 5:
+            flash("Usuario bloqueado por exceso de intentos")
+            print("Intentos actuales (bloqueado):", intentos_fallidos)  # 👈 aquí ves el estado
+            return redirect(url_for("form_bp.signin"))
+
+        # Verificar contraseña
+        if user_model.check_password(d_password):
+            Usuario.resetear_intentos(d_dni)
+            print("Intentos actuales (reset):", intentos_fallidos)  # 👈 aquí ves el reset
             login_user(user_model, remember=bool(remember_me))
             next = request.args.get('next')
-
             if not next or urlparse(next).netloc != '':
-                nexzt = url_for('index')
+                next = url_for('index')
             return redirect(next)
+        else:
+            Usuario.registrar_intento(d_dni)
+            print("Intentos actuales (fallo):", intentos_fallidos)  # 👈 aquí ves el contador subir
+            flash("Contraseña incorrecta")
+            return redirect(url_for("form_bp.signin"))
 
     return render_template("signin_form.html")
 

@@ -195,3 +195,73 @@ header {
     font-size: 14px;  /* tamaño de texto */
 }
 
+/* Estilos para buscador */
+/* Contenedor del buscador */
+.buscador-container {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-left: 12px;
+    padding: 10px;
+}
+
+/* Input de búsqueda */
+.buscador-container input[type="text"] {
+    width: 300px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.buscador-container input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Botón de búsqueda */
+.buscador-container button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buscador-container button:hover {
+    background-color: #0056b3;
+}
+
+.reset-btn {
+    padding: 8px 16px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.reset-btn:hover {
+    background-color: #5a6268;
+}
+
+.agregar-btn {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.agregar-btn:hover {
+    background-color: #218838;
+}

@@ -11,6 +11,18 @@ class Producto:
         self.stock = stock
         self.descripcion = descripcion
         self.ruta_imagen = ruta_imagen
+    
+    @staticmethod
+    def agregar_producto(nombre_producto, id_categoria, id_subcategoria, precio, stock=0, descripcion="", ruta_imagen=""):
+        db = Database()
+        query = """
+            INSERT INTO productos (nombre_producto, id_categoria, id_subcategoria, precio, stock, descripcion, ruta_imagen)
+            VALUES (?, ?, ?, ?, ?, ?, ?);
+        """
+        db.cur.execute(query, (nombre_producto, id_categoria, id_subcategoria, precio, stock, descripcion, ruta_imagen))
+        db.conn.commit()
+
+
 
     @staticmethod
     def listar_productos():
@@ -57,3 +69,4 @@ class Producto:
     def buscar_productos(nombre):
         arbol = Producto.cargar_arbol()
         return arbol.buscar(nombre)
+    

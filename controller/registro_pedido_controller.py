@@ -17,23 +17,34 @@ def listar_registros():
         registro_productos=registros,
         vencimientos=vencidos
     )
-
-
-
 # Ruta para registrar un producto
 @registro_pedidos_bp.route('/registrar', methods=["POST"])
 @login_required
 def registrar_producto():
     producto = request.form.get("producto")
     stock = request.form.get("stock")
+    id_producto = request.form.get("id")
     fecha_registro = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    fecha_vencimiento = request.form.get("fecha_vencimiento")
 
-    RegistroProducto.registrar(producto, stock, fecha_registro)
-    flash("Producto registrado correctamente", "success")
+    # Validar stock
+    if not stock:
+        stock = 0
+    else:
+        stock = int(stock)
+
+    # Registrar pedido en registro_productos
+    RegistroProducto.registrar(producto, stock, fecha_registro,fecha_vencimiento)
+
+    # ✅ Actualizar stock en productos
+    from model.pedido import Pedido
+    pedidos = Pedido.listar_pedidos()
+    pedido = next((p for p in pedidos if str(p.id) == str(id_producto)), None)
+
+    if pedido:
+        pedido.aumentar_stock(stock)
+
+    flash("Producto registrado y stock actualizado", "success")
     return redirect(url_for('registro_pedidos_bp.listar_registros'))
-@registro_pedidos_bp.route('/revisar-vencimientos')
-@login_required
-def revisar_vencimientos():
-    RegistroProducto.revisar_vencimientos()
-    flash("Vencimientos actualizados", "info")
-    return redirect(url_for('registro_pedidos_bp.listar_registros'))
+
+

@@ -27,4 +27,13 @@ class Pedido:
                 )
             )
         return pedidos
-
+    
+    def aumentar_stock(self, cantidad):
+        db = Database()
+        stock_actual = self.stock if self.stock is not None else 0
+        nuevo_stock = stock_actual + cantidad
+        query = "UPDATE productos SET stock = ? WHERE id = ?"
+        db.cur.execute(query, (nuevo_stock, self.id))
+        db.conn.commit()
+        db.conn.close()
+        self.stock = nuevo_stock
