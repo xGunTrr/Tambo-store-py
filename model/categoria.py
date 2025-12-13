@@ -19,3 +19,10 @@ class Categoria:
                 )
             )
         return categorias
+
+    @staticmethod
+    def obtener_todas():
+        db = Database()
+        query = "SELECT id, nombre_categoria FROM categorias;"
+        filas = db.cur.execute(query).fetchall()
+        return [Categoria(id=f[0], nombre_categoria=f[1]) for f in filas]

@@ -27,3 +27,11 @@ class Subcategoria:
                 )
             )
         return subcategorias
+    @staticmethod
+    def obtener_todas():
+        conn = Database()
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, nombre FROM categorias")
+        rows = cursor.fetchall()
+        return [Subcategoria(id=row[0], nombre=row[1]) for row in rows]
+

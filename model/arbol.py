@@ -61,20 +61,3 @@ class ArbolProductos:
             }]
             + self._inorden(nodo.der)
         )
-
-def cargar_arbol():
-    db = Database()
-    query = "SELECT id, nombre_producto, precio, stock FROM productos"
-    filas = db.cur.execute(query).fetchall()
-
-    arbol = ArbolProductos()
-    for f in filas:
-        # Convertimos cada fila (tupla) en objeto Producto
-        producto = Producto(
-            id=f[0],
-            nombre_producto=f[1],
-            precio=f[2],
-            stock=f[3]
-        )
-        arbol.insertar(producto)
-    return arbol

@@ -13,8 +13,10 @@ class Database:
         self.setup_database()
 
     def setup_database(self):
-        with open(self.sql_script_path, "r", encoding="UTF-8") as f:
-            sql_query = f.read()
-
-        self.cur.executescript(sql_query)
-        self.conn.commit()
+        # Solo ejecutar si la base de datos no está ya inicializada
+        self.cur.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        if not self.cur.fetchone():  # Si no hay tablas
+            with open(self.sql_script_path, "r", encoding="UTF-8") as f:
+                sql_query = f.read()
+            self.cur.executescript(sql_query)
+            self.conn.commit()

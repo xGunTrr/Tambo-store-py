@@ -15,14 +15,38 @@ class Producto:
     @staticmethod
     def agregar_producto(nombre_producto, id_categoria, id_subcategoria, precio, stock=0, descripcion="", ruta_imagen=""):
         db = Database()
+        # Buscar el siguiente ID disponible
+        db.cur.execute("SELECT MAX(id) FROM productos")
+        max_id = db.cur.fetchone()[0]
+        next_id = (max_id + 1) if max_id else 1
+        
         query = """
-            INSERT INTO productos (nombre_producto, id_categoria, id_subcategoria, precio, stock, descripcion, ruta_imagen)
-            VALUES (?, ?, ?, ?, ?, ?, ?);
+            INSERT INTO productos (id, nombre_producto, id_categoria, id_subcategoria, precio, stock, descripcion, ruta_imagen)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?);
         """
-        db.cur.execute(query, (nombre_producto, id_categoria, id_subcategoria, precio, stock, descripcion, ruta_imagen))
+        db.cur.execute(query, (next_id, nombre_producto, id_categoria, id_subcategoria, precio, stock, descripcion, ruta_imagen))
         db.conn.commit()
 
+    @staticmethod
+    def eliminar_producto(id_producto):
+        db = Database()
+        query = "DELETE FROM productos WHERE id = ?"
+        db.cur.execute(query, (id_producto,))
+        db.conn.commit()
+        # Recompactar la base de datos y reajustar la secuencia de IDs
+        db.cur.execute("VACUUM")
+        db.conn.commit()
 
+    @staticmethod
+    def actualizar_producto(id_producto, nombre_producto, id_categoria, id_subcategoria, precio, stock):
+        db = Database()
+        query = """
+            UPDATE productos 
+            SET nombre_producto = ?, id_categoria = ?, id_subcategoria = ?, precio = ?, stock = ?
+            WHERE id = ?;
+        """
+        db.cur.execute(query, (nombre_producto, id_categoria, id_subcategoria, precio, stock, id_producto))
+        db.conn.commit()
 
     @staticmethod
     def listar_productos():
@@ -68,5 +92,4 @@ class Producto:
     @staticmethod
     def buscar_productos(nombre):
         arbol = Producto.cargar_arbol()
-        return arbol.buscar(nombre)
-    
+        return arbol.buscar(nombre) 
